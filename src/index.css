@@ -1,0 +1,37 @@
+body {
+  background-color: #0063b2;
+  color: #9cc3d5;
+  font-family: "Times New Roman", Times, serif;
+}
+button {
+  background-color: #9cc3d5;
+  color: #0063b2;
+  border-color: #9cc3d5;
+}
+.flex {
+  display: flex;
+  width: 100%;
+}
+.center {
+  justify-content: center;
+}
+.big {
+  font-size: 36px;
+}
+.color-grey {
+  color: #9cc3d5;
+}
+
+.mp0 {
+  margin: 0px;
+  padding: 0px;
+}
+.navbar {
+  list-style: none;
+}
+a:link {
+  color: #9cc3d5;
+}
+a:hover {
+  color: #9cd5a5;
+}
