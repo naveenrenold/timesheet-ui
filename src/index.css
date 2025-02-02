@@ -10,7 +10,6 @@ button {
 }
 .flex {
   display: flex;
-  width: 100%;
 }
 .center {
   justify-content: center;
@@ -28,10 +27,26 @@ button {
 }
 .navbar {
   list-style: none;
+  background-color: #9cc3d5;
 }
 a:link {
   color: #9cc3d5;
+  text-decoration-line: none;
 }
 a:hover {
-  color: #9cd5a5;
+  color: #7e68c5;
+}
+.width-25 {
+  width: 25%;
+}
+.navbar li {
+  border-color: #0063b2;
+  border-style: solid;
+  width: 25%;
+  text-align: center;
+}
+.navbar a {
+  padding: 5%;
+  display: block;
+  color: #0063b2;
 }

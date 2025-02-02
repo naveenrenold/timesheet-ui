@@ -3,12 +3,8 @@ import "./Login.css";
 function Login() {
   return (
     <>
-      <div>TimeSheet</div>
       <div>
-        <label>
-          Login:
-          <input type="text" title="login" />
-        </label>
+        <label>Login:</label>
       </div>
       <div>
         <div>
