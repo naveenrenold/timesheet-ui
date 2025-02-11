@@ -1,81 +1,51 @@
-// import "./Login.css";
+import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
-// function Login() {
-//   return (
-//     <div className="login-container">
-//       <label>Login</label>
-//       <div>
-//         <label>
-//           UserName:
-//           <input type="text" title="username" />
-//         </label>
-//       </div>
-//       <div>
-//         <label>
-//           Password:
-//           <input type="password" title="password" />
-//         </label>
-//       </div>
-//       <div>
-//         <button type="submit">Login</button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Login;
-import "./Login.css";
-
-function Login() {
-  let employeeId = "";
-  let password = "";
+function Login({ onLogin }: { onLogin: () => void }) {
+  let employeeId = '';
+  let password = '';
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     if (!employeeId || !password) {
-      alert("Please enter Employee ID and Password.");
+      alert('Please enter Employee ID and Password.');
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/employee/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const response = await fetch('http://localhost:5000/api/employee/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ employeeId, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        alert(`Login successful! Employee Name: ${data.name}`);
+        sessionStorage.setItem('employee', JSON.stringify(data));
+        onLogin();
+        navigate('/home');
       } else {
-        alert(data.message || "Invalid credentials");
+        alert(data.message || 'Invalid credentials');
       }
     } catch (err) {
-      alert("Something went wrong. Try again later.");
+      alert('Something went wrong. Try again later.');
     }
   };
 
   return (
     <div className="login-container">
-      <label>Login</label>
+      <h2>Login</h2>
       <div>
         <label>
           Employee ID:
-          <input
-            type="text"
-            onChange={(e) => (employeeId = e.target.value)}  // Updates employeeId directly
-            placeholder="Enter Employee ID"
-          />
+          <input type="text" onChange={(e) => (employeeId = e.target.value)} placeholder="Enter Employee ID" />
         </label>
       </div>
       <div>
         <label>
           Password:
-          <input
-            type="password"
-            onChange={(e) => (password = e.target.value)}  // Updates password directly
-            placeholder="Enter Password"
-          />
+          <input type="password" onChange={(e) => (password = e.target.value)} placeholder="Enter Password" />
         </label>
       </div>
       <div>
