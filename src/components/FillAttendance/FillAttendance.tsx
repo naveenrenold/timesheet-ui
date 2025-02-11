@@ -6,19 +6,19 @@ function FillAttendance() {
   const navigate = useNavigate();
   let employeeId = "";
   let attendanceDate = "";
-  let status = "1";
+  let statusId = "";
 
   useEffect(() => {
-    // Retrieve employeeId from sessionStorage
-    const storedEmployee = sessionStorage.getItem("employee");
-    if (storedEmployee) {
-      const employeeData = JSON.parse(storedEmployee);
-      employeeId = employeeData.employeeId;
-    }
-  }, []);
+   // Retrieve employeeId from sessionStorage
+   const storedEmployee = sessionStorage.getItem("employee");
+   if (storedEmployee) {
+    const employeeData = JSON.parse(storedEmployee);
+    employeeId = employeeData.employeeId;
+     }
+   }, []);
 
   const handleSubmit = async () => {
-    if (!employeeId || !attendanceDate || !status) {
+    if (!employeeId ||!attendanceDate || !statusId) {
       alert("Please fill all fields.");
       return;
     }
@@ -26,7 +26,8 @@ function FillAttendance() {
     const requestData = {
       employeeId,
       attendanceDate,
-      status: parseInt(status),
+      //status: parseInt(status),
+      statusId,
     };
 
     try {
@@ -63,7 +64,7 @@ function FillAttendance() {
 
         <div className="form-group">
           <label htmlFor="status">Attendance Status</label>
-          <select id="status" onChange={(e) => (status = e.target.value)}>
+          <select id="status" onChange={(e) => (statusId = e.target.value)}>
             <option value="1">Present</option>
             <option value="2">Leave</option>
             <option value="3">WFH</option>
