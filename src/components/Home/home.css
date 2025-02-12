@@ -12,12 +12,12 @@
   }
   
   /* Heading style */
-  /* .home-container h2 {
+  .home-container h2 {
     font-size: 28px;
     font-weight: bold;
     color: #0063b2; 
-    margin-bottom: 20px;
-  } */
+    
+  } 
   .home-container p {
     font-size: 18px;
     color: #333;
