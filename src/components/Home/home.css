@@ -12,12 +12,23 @@
   }
   
   /* Heading style */
-  .home-container h2 {
+  /* .home-container h2 {
     font-size: 28px;
     font-weight: bold;
-    color: #0063b2; /* Darker blue for the heading */
+    color: #0063b2; 
     margin-bottom: 20px;
-  }
+  } */
+  .home-container p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: center;
+    padding-left: 200px;
+}
   
   /* Employee details section */
   .home-container p {

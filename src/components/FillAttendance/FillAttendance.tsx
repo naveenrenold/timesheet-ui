@@ -1,3 +1,4 @@
+// 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FillAttendance.css";
@@ -7,18 +8,19 @@ function FillAttendance() {
   let employeeId = "";
   let attendanceDate = "";
   let statusId = "";
+  let leaveType = "";
 
   useEffect(() => {
-   // Retrieve employeeId from sessionStorage
-   const storedEmployee = sessionStorage.getItem("employee");
-   if (storedEmployee) {
-    const employeeData = JSON.parse(storedEmployee);
-    employeeId = employeeData.employeeId;
-     }
-   }, []);
+    // Retrieve employeeId from sessionStorage
+    const storedEmployee = sessionStorage.getItem("employee");
+    if (storedEmployee) {
+      const employeeData = JSON.parse(storedEmployee);
+      employeeId = employeeData.employeeId;
+    }
+  }, []);
 
   const handleSubmit = async () => {
-    if (!employeeId ||!attendanceDate || !statusId) {
+    if (!employeeId || !attendanceDate || !statusId) {
       alert("Please fill all fields.");
       return;
     }
@@ -26,8 +28,8 @@ function FillAttendance() {
     const requestData = {
       employeeId,
       attendanceDate,
-      //status: parseInt(status),
       statusId,
+      leaveType, // Include leaveType if Leave is selected
     };
 
     try {
@@ -49,6 +51,23 @@ function FillAttendance() {
     }
   };
 
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    statusId = e.target.value;
+    // Show or hide the leave options based on selected status
+    const leaveOptions = document.getElementById("leaveOptions");
+    if (leaveOptions) {
+      if (statusId === "3") {
+        leaveOptions.style.display = "block";
+      } else {
+        leaveOptions.style.display = "none";
+      }
+    }
+  };
+
+  const handleLeaveTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    leaveType = e.target.value;
+  };
+
   return (
     <div className="fill-attendance-container">
       <h2>Fill Attendance</h2>
@@ -64,12 +83,22 @@ function FillAttendance() {
 
         <div className="form-group">
           <label htmlFor="status">Attendance Status</label>
-          <select id="status" onChange={(e) => (statusId = e.target.value)}>
+          <select id="status" onChange={handleStatusChange}>
             <option value="1">Present</option>
-            <option value="2">Leave</option>
-            <option value="3">WFH</option>
-            <option value="4">Holiday</option>
-            <option value="5">Exceptional WFH</option>
+            <option value="2">WFH</option>
+            <option value="3">Leave</option>
+          </select>
+        </div>
+
+        {/* Conditional Leave Type Dropdown */}
+        <div className="form-group" id="leaveOptions" style={{ display: "none" }}>
+          <label htmlFor="status">Leave Type</label><br></br>
+          <select id="status" onChange={handleLeaveTypeChange}>
+            <option value="3">Earned</option>
+            <option value="4">Sick</option>
+            <option value="5">Annual</option>
+            <option value="6">Maternity</option>
+            <option value="7">Parental</option>
           </select>
         </div>
 

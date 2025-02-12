@@ -20,8 +20,10 @@ function Home() {
     <div className="home-container">
       <h2>{employeeDetails.name}</h2>
       <p>Employee ID : {employeeDetails.employeeId}</p>
-      <p>Total WFH : {employeeDetails.totalWFH}</p>
-      <p>Total Leaves : {employeeDetails.totalLeaves}</p>
+      <p>Gender : {employeeDetails.gender}</p>
+      <p>Role : {employeeDetails.specialization}</p>
+      <p>WFH Balance: {employeeDetails.totalWFH}</p>
+      <p>Leave Balance : {employeeDetails.totalLeaves}</p>
     </div>
   );
 }
