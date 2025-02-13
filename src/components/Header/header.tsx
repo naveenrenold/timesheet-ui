@@ -14,7 +14,7 @@ function Header({ onLogout }: { onLogout: () => void }) {
     <div className="header">
       <ol className="navbar flex mp0">
         <li><a href="#" onClick={() => navigate('/home')}>Home</a></li>
-        <li><a href="#" onClick={() => navigate('/fill-attendance')}>Fill TimeSheet</a></li>
+        <li><a href="#" onClick={() => navigate('/fill-attendance')}>Fill Attendance</a></li>
         <li><a href="#">Generate Report</a></li>
         <li><a href="#">File Exception</a></li>
        < li className="logout-button" onClick={handleLogout}><a href ="#">Logout</a></li>

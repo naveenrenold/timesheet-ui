@@ -1,21 +1,31 @@
-// 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FillAttendance.css";
 
 function FillAttendance() {
   const navigate = useNavigate();
-  let employeeId = "";
-  let attendanceDate = "";
-  let statusId = "";
-  let leaveType = "";
+
+  // State variables for employee details and attendance
+  const [employeeId, setEmployeeId] = useState("");
+  const [attendanceDate, setAttendanceDate] = useState("");
+  const [statusId, setStatusId] = useState("");
+  const [leaveType, setLeaveType] = useState("");
+  const [name, setName] = useState("");
+  const [gender, setGender] = useState("");
+  const [specialization, setSpecialization] = useState("");
+  const [wfhBalance, setWfhBalance] = useState(0);
+  const [leaveBalance, setLeaveBalance] = useState(0);
 
   useEffect(() => {
-    // Retrieve employeeId from sessionStorage
     const storedEmployee = sessionStorage.getItem("employee");
     if (storedEmployee) {
       const employeeData = JSON.parse(storedEmployee);
-      employeeId = employeeData.employeeId;
+      setEmployeeId(employeeData.employeeId || "");
+      setName(employeeData.name || "");
+      setGender(employeeData.gender || "");
+      setSpecialization(employeeData.specialization || "");
+      setWfhBalance(employeeData.totalWFH || 0);
+      setLeaveBalance(employeeData.totalLeaves || 0);
     }
   }, []);
 
@@ -25,11 +35,29 @@ function FillAttendance() {
       return;
     }
 
+    // Check balances before submitting
+    if (statusId === "2" && wfhBalance <= 0) {
+      alert("Insufficient WFH balance.");
+      return;
+    } else if (statusId === "3" && leaveBalance <= 0) {
+      alert("Insufficient Leave balance.");
+      return;
+    }
+
+    // Update balances locally before sending
+    const newWfhBalance = statusId === "2" ? wfhBalance - 1 : wfhBalance;
+    const newLeaveBalance = statusId === "3" ? leaveBalance - 1 : leaveBalance;
+
     const requestData = {
       employeeId,
+      name,
       attendanceDate,
       statusId,
-      leaveType, // Include leaveType if Leave is selected
+      leaveType,
+      gender,
+      specialization,
+      wfhBalance: newWfhBalance,
+      leaveBalance: newLeaveBalance,
     };
 
     try {
@@ -41,6 +69,16 @@ function FillAttendance() {
 
       if (response.ok) {
         alert("Attendance submitted successfully!");
+        setWfhBalance(newWfhBalance);
+        setLeaveBalance(newLeaveBalance);
+        sessionStorage.setItem("employee", JSON.stringify({
+          employeeId,
+          name,
+          gender,
+          specialization,
+          totalWFH: newWfhBalance,
+          totalLeaves: newLeaveBalance,
+        }));
         navigate("/home");
       } else {
         const data = await response.json();
@@ -52,20 +90,32 @@ function FillAttendance() {
   };
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    statusId = e.target.value;
-    // Show or hide the leave options based on selected status
-    const leaveOptions = document.getElementById("leaveOptions");
-    if (leaveOptions) {
-      if (statusId === "3") {
-        leaveOptions.style.display = "block";
-      } else {
-        leaveOptions.style.display = "none";
-      }
-    }
+    setStatusId(e.target.value);
+
+    // Show leave options only if 'Leave' is selected
+    document.getElementById("leaveOptions")?.style.setProperty(
+      "display",
+      e.target.value === "3" ? "block" : "none"
+    );
+
+    // Reset leave type when changing status
+    setLeaveType("");
   };
 
-  const handleLeaveTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    leaveType = e.target.value;
+  const getFilteredLeaveTypes = () => {
+    const leaveOptions = [
+      { value: "3", label: "Earned" },
+      { value: "4", label: "Sick" },
+      { value: "5", label: "Annual" },
+    ];
+
+    if (gender.toLowerCase() === "male") {
+      leaveOptions.push({ value: "7", label: "Parental" });
+    } else if (gender.toLowerCase() === "female") {
+      leaveOptions.push({ value: "6", label: "Maternity" });
+    }
+
+    return leaveOptions;
   };
 
   return (
@@ -77,28 +127,28 @@ function FillAttendance() {
           <input
             type="date"
             id="attendanceDate"
-            onChange={(e) => (attendanceDate = e.target.value)}
+            value={attendanceDate}
+            onChange={(e) => setAttendanceDate(e.target.value)}
           />
         </div>
 
         <div className="form-group">
           <label htmlFor="status">Attendance Status</label>
-          <select id="status" onChange={handleStatusChange}>
+          <select id="status" value={statusId} onChange={handleStatusChange}>
             <option value="1">Present</option>
             <option value="2">WFH</option>
             <option value="3">Leave</option>
           </select>
         </div>
 
-        {/* Conditional Leave Type Dropdown */}
         <div className="form-group" id="leaveOptions" style={{ display: "none" }}>
-          <label htmlFor="status">Leave Type</label><br></br>
-          <select id="status" onChange={handleLeaveTypeChange}>
-            <option value="3">Earned</option>
-            <option value="4">Sick</option>
-            <option value="5">Annual</option>
-            <option value="6">Maternity</option>
-            <option value="7">Parental</option>
+          <label htmlFor="leaveType">Leave Type</label><br></br>
+          <select id="leaveType" value={leaveType} onChange={(e) => setLeaveType(e.target.value)}>
+            {getFilteredLeaveTypes().map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
         </div>
 
