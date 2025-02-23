@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import { useState } from 'react';
 
 function Login({ onLogin }: { onLogin: () => void }) {
-  let employeeId = '';
-  let password = '';
-  const navigate = useNavigate();
+  let [employeeId, UpdateEmployeeId] = useState('');
+  let [password, UpdatePassword] = useState('');  
 
+  const navigate = useNavigate();  
   const handleLogin = async () => {
     if (!employeeId || !password) {
       alert('Please enter Employee ID and Password.');
@@ -39,13 +40,13 @@ function Login({ onLogin }: { onLogin: () => void }) {
       <div>
         <label>
           Employee ID:
-          <input type="text" onChange={(e) => (employeeId = e.target.value)} placeholder="Enter Employee ID" />
+          <input type="text" onChange={(e) => (UpdateEmployeeId(e.target.value))} placeholder="Enter Employee ID" />
         </label>
       </div>
       <div>
         <label>
           Password:
-          <input type="password" onChange={(e) => (password = e.target.value)} placeholder="Enter Password" />
+          <input type="password" onChange={(e) => (UpdatePassword(e.target.value))} placeholder="Enter Password" />
         </label>
       </div>
       <div>
@@ -56,3 +57,5 @@ function Login({ onLogin }: { onLogin: () => void }) {
 }
 
 export default Login;
+
+
