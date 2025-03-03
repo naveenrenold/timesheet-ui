@@ -67,7 +67,21 @@ function FillAttendance() {
         body: JSON.stringify(requestData),
       });
 
-      if (response.ok) {
+      if (response.ok) {        
+        const balanceResponse = await fetch("http://localhost:5000/api/employee/updateattendance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          employeeId : employeeId,
+          statusId : statusId
+          }),
+      });
+      if(!balanceResponse.ok)
+      {
+        const data = await balanceResponse.json();
+        alert(data.message || "Failed to submit attendance.");
+        return;
+      }
         alert("Attendance submitted successfully!");
         setWfhBalance(newWfhBalance);
         setLeaveBalance(newLeaveBalance);
