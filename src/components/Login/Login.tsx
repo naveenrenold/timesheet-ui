@@ -1,36 +1,36 @@
-import { useNavigate } from 'react-router-dom';
-import './Login.css';
-import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import "./Login.css";
+import { useState } from "react";
 
 function Login({ onLogin }: { onLogin: () => void }) {
-  let [employeeId, UpdateEmployeeId] = useState('');
-  let [password, UpdatePassword] = useState('');  
+  let [employeeId, UpdateEmployeeId] = useState("");
+  let [password, UpdatePassword] = useState("");
 
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
   const handleLogin = async () => {
     if (!employeeId || !password) {
-      alert('Please enter Employee ID and Password.');
+      alert("Please enter Employee ID and Password.");
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/employee/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("http://localhost:5000/api/employee/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ employeeId, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        sessionStorage.setItem('employee', JSON.stringify(data));
+        sessionStorage.setItem("employee", JSON.stringify(data));
         onLogin();
-        navigate('/home');
+        navigate("/home");
       } else {
-        alert(data.message || 'Invalid credentials');
+        alert(data.message || "Invalid credentials");
       }
     } catch (err) {
-      alert('Something went wrong. Try again later.');
+      alert("Something went wrong. Try again later.");
     }
   };
 
@@ -40,13 +40,21 @@ function Login({ onLogin }: { onLogin: () => void }) {
       <div>
         <label>
           Employee ID:
-          <input type="text" onChange={(e) => (UpdateEmployeeId(e.target.value))} placeholder="Enter Employee ID" />
+          <input
+            type="text"
+            onChange={(e) => UpdateEmployeeId(e.target.value)}
+            placeholder="Enter Employee ID"
+          />
         </label>
       </div>
       <div>
         <label>
           Password:
-          <input type="password" onChange={(e) => (UpdatePassword(e.target.value))} placeholder="Enter Password" />
+          <input
+            type="password"
+            onChange={(e) => UpdatePassword(e.target.value)}
+            placeholder="Enter Password"
+          />
         </label>
       </div>
       <div>
@@ -57,5 +65,3 @@ function Login({ onLogin }: { onLogin: () => void }) {
 }
 
 export default Login;
-
-
