@@ -1,8 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function Login({ onLogin }: { onLogin: () => void }) {
+function Login({
+  onLogin,
+  onLogOut,
+}: {
+  onLogin: () => void;
+  onLogOut: () => void;
+}) {
+  useEffect(() => {
+    onLogOut();
+  }, []);
+
   let [employeeId, UpdateEmployeeId] = useState("");
   let [password, UpdatePassword] = useState("");
 
