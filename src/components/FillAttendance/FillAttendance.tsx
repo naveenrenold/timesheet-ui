@@ -167,7 +167,7 @@ function FillAttendance() {
         </div>
 
         <div className="form-group">
-          <button onClick={handleSubmit}>Submit</button>
+          <button type="submit" onClick={handleSubmit}>Submit</button>
         </div>
       </div>
     </div>
