@@ -1,37 +1,30 @@
 import { useState } from "react";
+import "./summary.css";
 
 function Summary() {
+  //1.Get current Date
+  //2.Get days of week in a list for calendar
+  //3.Get last 4 month dates for calendar
+  //4.Make api call when page load that will get data for 4 months by default and return 2d list of month and status list
+  //5. In short: for 4 months status we will get for the days
+  //6. These status we have to properly loop to form react table
+  //7. Each status id will use diff class to style
   const currentDate = new Date();
-  // const noOfDaysInAMonth = (month: number) => {
-  //   return new Date(0, month, 0).getDate();
-  // };
   let weeks = [];
   for (let i = 0; i < 7; i++) {
     weeks.push(Week[i]);
   }
-  // let tempMonths = [];
-  // let tempYears = new Set<number>();
   let dates = [];
   for (let i = 0; i < 4; i++) {
     let date = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth() - i,
       currentDate.getDate()
-    ); //currentDate.setMonth(currentDate.getMonth() - i));
-    // tempMonths.push(month[date.getMonth()]);
-    // tempYears.add(date.getFullYear());
+    );
     dates.push(date);
   }
-  // let [selectedMonth, updateSelectedMonth] = useState(
-  //   currentDate.toLocaleDateString("default", {
-  //     month: "long",
-  //     year: "numeric",
-  //   })
-  // );
+
   let [selectedDate, updateSelectedDate] = useState(currentDate);
-  // let [months, updateMonths] = useState(tempMonths);
-  // let [years, updateYears] = useState([...tempYears]);
-  //let [dates, updateDates] = useState(tempDate);
 
   let tempMonthStatus: status[] = [];
   for (let i = 0; i < 30; i++) {
@@ -54,15 +47,16 @@ function Summary() {
   const formattedMonthStatus = formatMonthStatus();
   console.log(formattedMonthStatus);
 
-  //const max = new Date().toISOString().slice(0, 10);
+  const OnMonthUpdate = (date: Date) => {
+    updateSelectedDate(date);
+  };
+
   return (
     <>
       <div>
         <label>
           Month:
-          <select
-            onChange={(e) => updateSelectedDate(new Date(e.target.value))}
-          >
+          <select onChange={(e) => OnMonthUpdate(new Date(e.target.value))}>
             {dates.map((date, id) => {
               return (
                 <option key={id} value={date.toString()}>
@@ -73,19 +67,9 @@ function Summary() {
                 </option>
               );
             })}
-            {/* {months.map((month, id) => {
-              return <option key={id}>{month}</option>;
-            })} */}
+            {}
           </select>
         </label>
-        {/* <label>
-          Year:
-          <select>
-            {years.map((year, id) => {
-              return <option key={id}>{year}</option>;
-            })}
-          </select>
-        </label> */}
         <table>
           <thead>
             <tr>
@@ -99,7 +83,11 @@ function Summary() {
               return (
                 <tr key={id}>
                   {month.map((status, idx) => {
-                    return <td key={idx}>{status}</td>;
+                    return (
+                      <td key={idx} className={"color " + statusClass[status]}>
+                        {status}
+                      </td>
+                    );
                   })}
                 </tr>
               );
@@ -143,5 +131,11 @@ export enum status {
   "Present/WFH",
   "Absent",
   "Abscond",
+}
+export enum statusClass {
+  "status1" = 1,
+  "status2",
+  "status3",
+  "status4",
 }
 //Need to convert status in months to selected mon to weeks
