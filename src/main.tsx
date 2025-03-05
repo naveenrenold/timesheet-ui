@@ -7,6 +7,7 @@ import Home from "./components/Home/home.tsx";
 import FillAttendance from "./components/FillAttendance/FillAttendance.tsx";
 
 import "./index.css";
+import Summary from "./components/Summary/Summary.tsx";
 
 function App() {
   const [employeeId, updateEmployeeId] = useState(
@@ -45,6 +46,7 @@ function App() {
         />
         <Route path="/home" element={<Home />} />
         <Route path="/fill-attendance" element={<FillAttendance />} />
+        <Route path="/summary" element={<Summary />} />
       </Routes>
     </BrowserRouter>
   );
