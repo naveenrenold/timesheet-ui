@@ -136,77 +136,41 @@ function FillAttendance() {
 
   
 
-      if (response.ok) {         
-
-        const balanceResponse = await fetch("http://localhost:5000/api/employee/updateattendance", { 
-
-        method: "POST", 
-
-        headers: { "Content-Type": "application/json" }, 
-
-        body: JSON.stringify({ 
-
-          employeeId : employeeId.toString(), 
-
-          statusId : statusId 
-
-          }), 
-
-      }); 
-
-      if(!balanceResponse.ok) 
-
-      { 
-
-        const data = await balanceResponse.json(); 
-
-        alert(data.message || "Failed to submit attendance."); 
-
-        return; 
-
-      } 
-
-        alert("Attendance submitted successfully!"); 
-
-        setWfhBalance(newWfhBalance); 
-
-        setLeaveBalance(newLeaveBalance); 
-
-        sessionStorage.setItem("employee", JSON.stringify({ 
-
-          employeeId, 
-
-          name, 
-
-          gender, 
-
-          specialization, 
-
-          totalWFH: newWfhBalance, 
-
-          totalLeaves: newLeaveBalance, 
-
-        })); 
-
-        navigate("/home"); 
-
-      } else { 
-
-        const data = await response.json(); 
-
-        alert(data.message || "Failed to submit attendance."); 
-
-      } 
-
-    } catch (err) { 
-
-      alert("Something went wrong. Try again later."); 
-
-    } 
-
-  }; 
-
-  
+      if (response.ok) {        
+        const balanceResponse = await fetch("http://localhost:5000/api/employee/updateattendance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          employeeId : employeeId,
+          statusId : statusId
+          }),
+      });
+      if(!balanceResponse.ok)
+      {
+        const data = await balanceResponse.json();
+        alert(data.message || "Failed to submit attendance.");
+        return;
+      }
+        alert("Attendance submitted successfully!");
+        setWfhBalance(newWfhBalance);
+        setLeaveBalance(newLeaveBalance);
+        sessionStorage.setItem("employee", JSON.stringify({
+          employeeId,
+          name,
+          gender,
+          specialization,
+          totalWFH: newWfhBalance,
+          totalLeaves: newLeaveBalance,
+        }));
+        navigate("/home");
+      } else {
+        const data = await response.json();
+        alert(data.message || "Failed to submit attendance.");
+      }
+    } catch (err) {
+      alert("Something went wrong. Try again later.");
+    }
+  };
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => { 
 
@@ -334,21 +298,13 @@ function FillAttendance() {
 
   
 
-        <div className="form-group"> 
-
-          <button onClick={handleSubmit}>Submit</button> 
-
-        </div> 
-
-      </div> 
-
-    </div> 
-
-  ); 
-
-} 
-
-  
+        <div className="form-group">
+          <button type="submit" onClick={handleSubmit}>Submit</button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default FillAttendance; 
 

@@ -1,0 +1,16 @@
+.status1 {
+  background-color: grey;
+}
+.status2 {
+  background-color: lightcoral;
+}
+.status3 {
+  background-color: lightsalmon;
+}
+.status4 {
+  background-color: lightgreen;
+}
+.color {
+  color: rgb(59, 25, 25);
+  text-align: center;
+}
