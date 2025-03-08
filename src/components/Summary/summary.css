@@ -1,16 +1,77 @@
+.status0 {
+  background-color: #ed3b3b;
+}
 .status1 {
-  background-color: grey;
+  background-color: #06c706;
 }
 .status2 {
-  background-color: lightcoral;
+  background-color: #ed9e06;
 }
 .status3 {
-  background-color: lightsalmon;
+  background-color: #179ded;
 }
 .status4 {
-  background-color: lightgreen;
+  background-color: darkgray;
+}
+.status5 {
+  background-color: grey;
 }
 .color {
   color: rgb(59, 25, 25);
   text-align: center;
+}
+.margin-top-5 {
+  margin-top: 5px;
+}
+.margin-top-10 {
+  margin-top: 10px;
+}
+.margin-left {
+  margin-left: 5px;
+}
+.padding {
+  padding: 6px;
+}
+.bgcolor-lightblue {
+  background-color: #9cc3d5;
+}
+tr {
+  height: 50px;
+}
+td {
+  width: 75px;
+  border-style: double;
+}
+table {
+}
+th {
+  border-style: double;
+  border-color: black;
+}
+.status0-leg {
+  background-color: #ed3b3b;
+  color: #ed3b3b;
+}
+.status1-leg {
+  background-color: #06c706;
+  color: #06c706;
+}
+.status2-leg {
+  background-color: #ed9e06;
+  color: #ed9e06;
+}
+.status3-leg {
+  background-color: #179ded;
+  color: #179ded;
+}
+.status4-leg {
+  background-color: darkgray;
+  color: darkgray;
+}
+.status5-leg {
+  background-color: grey;
+  color: grey;
+}
+.leg {
+  margin: 2px;
 }
