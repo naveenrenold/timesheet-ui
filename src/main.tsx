@@ -8,6 +8,7 @@ import FillAttendance from "./components/FillAttendance/FillAttendance.tsx";
 
 import "./index.css";
 import Summary from "./components/Summary/Summary.tsx";
+import WFHException from "./components/WFHException/WFHException.tsx"
 
 function App() {
   const [employeeId, updateEmployeeId] = useState(
@@ -47,6 +48,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/fill-attendance" element={<FillAttendance />} />
         <Route path="/summary" element={<Summary />} />
+        <Route path="/file-exception" element={<WFHException />} />
       </Routes>
     </BrowserRouter>
   );
