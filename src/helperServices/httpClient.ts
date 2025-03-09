@@ -3,6 +3,7 @@ class httpClient {
 
   //Endpoints
   //Attendance
+  static getAttendance = "/api/attendance?";
   static postAttendance = "/api/attendance/attendance";
   //Auth
   static getAuthorisation = "/api/auth?employeeId=";
@@ -11,12 +12,12 @@ class httpClient {
   static updateAttendance = "/api/employee/updateattendance";
   static getEmployee = "/api/employee/getEmployee/"; // +employeeId
 
-  static async get(url: string) {
+  static async get<T>(url: string) {
     let response = await fetch(this.baseUrl + url, {
       method: "get",
       headers: { "Content-Type": "application/json" },
     });
-    let responseJson = await response.json();
+    let responseJson : T = await response.json();
     return responseJson;
   }
 
