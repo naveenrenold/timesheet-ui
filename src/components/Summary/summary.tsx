@@ -27,12 +27,14 @@ function Summary() {
     let date = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth() - i,
-      currentDate.getDate()
+      1,
+      5,
+      30
     );
     dates.push(date);
   }
 
-  let [selectedDate, updateSelectedDate] = useState<Date>(currentDate);
+  let [selectedDate, updateSelectedDate] = useState<Date>(dates[0]);
 
   let [monthStatus, updateMonthStatus] = useState<MonthlyStatus[]>();
 
@@ -202,7 +204,7 @@ function Summary() {
                                         {ele != 5
                                           ? idx * 7 +
                                             id -
-                                            ((selectedDate.getDay() + 4) % 7)
+                                            ((selectedDate.getDay() + 5) % 7)
                                           : " "}
                                       </td>
                                     </>
