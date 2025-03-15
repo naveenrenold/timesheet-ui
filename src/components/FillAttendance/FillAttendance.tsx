@@ -5,10 +5,16 @@ import "./FillAttendance.css";
 function FillAttendance() {
   const navigate = useNavigate();
 
+  const currentDate = new Date();
+  const getDateString = (date: Date) => {
+    return date.toISOString().slice(0, 10);
+  };
   // State variables for employee details and attendance
   const [employeeId, setEmployeeId] = useState("");
-  const [attendanceDate, setAttendanceDate] = useState("");
-  const [statusId, setStatusId] = useState("");
+  const [attendanceDate, setAttendanceDate] = useState(
+    getDateString(currentDate)
+  );
+  const [statusId, setStatusId] = useState("1");
   const [leaveType, setLeaveType] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
@@ -61,38 +67,43 @@ function FillAttendance() {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/api/attendance/attendance", {
+      const response = await fetch("http://localhost:5000/api/attendance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestData),
       });
 
-      if (response.ok) {        
-        const balanceResponse = await fetch("http://localhost:5000/api/employee/updateattendance", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          employeeId : employeeId,
-          statusId : statusId
-          }),
-      });
-      if(!balanceResponse.ok)
-      {
-        const data = await balanceResponse.json();
-        alert(data.message || "Failed to submit attendance.");
-        return;
-      }
+      if (response.ok) {
+        const balanceResponse = await fetch(
+          "http://localhost:5000/api/employee/updateattendance",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              employeeId: employeeId.toString(),
+              statusId: statusId,
+            }),
+          }
+        );
+        if (!balanceResponse.ok) {
+          const data = await balanceResponse.json();
+          alert(data.message || "Failed to submit attendance.");
+          return;
+        }
         alert("Attendance submitted successfully!");
         setWfhBalance(newWfhBalance);
         setLeaveBalance(newLeaveBalance);
-        sessionStorage.setItem("employee", JSON.stringify({
-          employeeId,
-          name,
-          gender,
-          specialization,
-          totalWFH: newWfhBalance,
-          totalLeaves: newLeaveBalance,
-        }));
+        sessionStorage.setItem(
+          "employee",
+          JSON.stringify({
+            employeeId,
+            name,
+            gender,
+            specialization,
+            totalWFH: newWfhBalance,
+            totalLeaves: newLeaveBalance,
+          })
+        );
         navigate("/home");
       } else {
         const data = await response.json();
@@ -107,10 +118,9 @@ function FillAttendance() {
     setStatusId(e.target.value);
 
     // Show leave options only if 'Leave' is selected
-    document.getElementById("leaveOptions")?.style.setProperty(
-      "display",
-      e.target.value === "3" ? "block" : "none"
-    );
+    document
+      .getElementById("leaveOptions")
+      ?.style.setProperty("display", e.target.value === "3" ? "block" : "none");
 
     // Reset leave type when changing status
     setLeaveType("");
@@ -143,6 +153,14 @@ function FillAttendance() {
             id="attendanceDate"
             value={attendanceDate}
             onChange={(e) => setAttendanceDate(e.target.value)}
+            max={currentDate.toISOString().slice(0, 10)}
+            min={getDateString(
+              new Date(
+                currentDate.getFullYear(),
+                currentDate.getMonth(),
+                currentDate.getDate() - 6
+              )
+            )}
           />
         </div>
 
@@ -155,9 +173,18 @@ function FillAttendance() {
           </select>
         </div>
 
-        <div className="form-group" id="leaveOptions" style={{ display: "none" }}>
-          <label htmlFor="leaveType">Leave Type</label><br></br>
-          <select id="leaveType" value={leaveType} onChange={(e) => setLeaveType(e.target.value)}>
+        <div
+          className="form-group"
+          id="leaveOptions"
+          style={{ display: "none" }}
+        >
+          <label htmlFor="leaveType">Leave Type</label>
+          <br></br>
+          <select
+            id="leaveType"
+            value={leaveType}
+            onChange={(e) => setLeaveType(e.target.value)}
+          >
             {getFilteredLeaveTypes().map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -167,7 +194,9 @@ function FillAttendance() {
         </div>
 
         <div className="form-group">
-          <button type="submit" onClick={handleSubmit}>Submit</button>
+          <button type="submit" onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       </div>
     </div>
