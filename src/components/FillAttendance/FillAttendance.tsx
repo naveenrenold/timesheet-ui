@@ -5,10 +5,16 @@ import "./FillAttendance.css";
 function FillAttendance() {
   const navigate = useNavigate();
 
+  const currentDate = new Date();
+  const getDateString = (date: Date) => {
+    return date.toISOString().slice(0, 10);
+  };
   // State variables for employee details and attendance
   const [employeeId, setEmployeeId] = useState("");
-  const [attendanceDate, setAttendanceDate] = useState("");
-  const [statusId, setStatusId] = useState("");
+  const [attendanceDate, setAttendanceDate] = useState(
+    getDateString(currentDate)
+  );
+  const [statusId, setStatusId] = useState("1");
   const [leaveType, setLeaveType] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
@@ -61,14 +67,11 @@ function FillAttendance() {
     };
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/attendance",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(requestData),
-        }
-      );
+      const response = await fetch("http://localhost:5000/api/attendance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      });
 
       if (response.ok) {
         const balanceResponse = await fetch(
@@ -150,6 +153,14 @@ function FillAttendance() {
             id="attendanceDate"
             value={attendanceDate}
             onChange={(e) => setAttendanceDate(e.target.value)}
+            max={currentDate.toISOString().slice(0, 10)}
+            min={getDateString(
+              new Date(
+                currentDate.getFullYear(),
+                currentDate.getMonth(),
+                currentDate.getDate() - 6
+              )
+            )}
           />
         </div>
 
