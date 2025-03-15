@@ -4,7 +4,7 @@ class httpClient {
   //Endpoints
   //Attendance
   static getAttendance = "/api/attendance?";
-  static postAttendance = "/api/attendance/attendance";
+  static postAttendance = "/api/attendance";
   //Auth
   static getAuthorisation = "/api/auth?employeeId=";
   //Employee
@@ -19,7 +19,7 @@ class httpClient {
       method: "get",
       headers: { "Content-Type": "application/json" },
     });
-    let responseJson : T = await response.json();
+    let responseJson: T = await response.json();
     return responseJson;
   }
 
