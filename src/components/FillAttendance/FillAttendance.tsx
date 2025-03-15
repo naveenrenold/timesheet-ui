@@ -231,10 +231,10 @@ function FillAttendance() {
   
 
   return ( 
-
+   <>
     <div className="fill-attendance-container"> 
 
-      <h2>Fill Attendance</h2> 
+      <div className= "fill">Fill Attendance</div>
 
       <div className="attendance-form"> 
 
@@ -303,6 +303,7 @@ function FillAttendance() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
