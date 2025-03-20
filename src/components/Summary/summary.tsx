@@ -193,7 +193,7 @@ function Summary() {
                         {ele.map((ele, idx) => {
                           return (
                             <>
-                              <tr key={id}>
+                              <tr key={idx}>
                                 {ele.map((ele, id) => {
                                   return (
                                     <>
