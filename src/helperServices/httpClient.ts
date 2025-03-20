@@ -40,7 +40,10 @@ class httpClient {
         case 400:
           var body = await response.json();
           alert(
-            body.errorMessage || body.message || "Failed due to bad request"
+            body.errorMessage ||
+              body.error?.errorMessage ||
+              body.message ||
+              "Failed due to bad request"
           );
           break;
         case 500:
@@ -50,7 +53,7 @@ class httpClient {
           break;
         default:
           var body = await response.json();
-          alert(body.message || body || "Unknown error occured");
+          alert(body.message || "Unknown error occured");
       }
       return null;
     } else if (!response.ok) {

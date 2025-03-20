@@ -15,13 +15,15 @@ function Header({
   useEffect(() => {
     if (employeeId) {
       const getActions = async () => {
-        let response: Action[] = await httpClient.get(
-          httpClient.getAuthorisation + employeeId
+        let apiResponse: any = await httpClient.get(
+          httpClient.getAuthorisation + employeeId,
+          true
         );
-        if (!response || response.length == 0) {
+        if (!apiResponse) {
           updateHeaderItems([]);
+          return;
         }
-        updateHeaderItems(response);
+        updateHeaderItems(apiResponse);
       };
       getActions();
     } else {
