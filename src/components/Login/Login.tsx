@@ -37,7 +37,12 @@ function Login({
         onLogin();
         navigate("/home");
       } else {
-        alert(data.message || "Invalid credentials");
+        alert(
+          data.errormessage ||
+            data.error?.errorMessage ||
+            data.message ||
+            "Invalid credentials"
+        );
       }
     } catch (err) {
       alert("Something went wrong. Try again later.");
