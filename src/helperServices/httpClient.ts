@@ -12,39 +12,53 @@ class httpClient {
   static updateAttendance = "/api/employee/updateattendance";
   static getEmployee = "/api/employee/getEmployee/"; // +employeeId
 
-  static async get<T>(url: string, handleError = false) {
+  static async get<T>(
+    url: string,
+    handleError = false
+  ): Promise<null | string | T> {
     let response = await fetch(this.baseUrl + url, {
       method: "get",
       headers: { "Content-Type": "application/json" },
     });
-    let responseJson: T = await response.json();
-    // if (handleError && !response.ok) {
-    //   this.handleStatusError(response, responseJson);
-    // }
-    return responseJson;
+    return this.handleStatusError(response, handleError);
   }
 
-  static async post(url: string, requestBody: any) {
+  static async post(url: string, requestBody: any, handleError = false) {
     let response = await fetch(this.baseUrl + url, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     });
-    let responseJson = await response.json();
-    return responseJson;
+    return this.handleStatusError(response, handleError);
   }
-  // private static handleStatusError(response: Response, body: any) {
-  //   switch (response.status) {
-  //     case 400:
-  //       alert(body.error || body.message || "Failed due to bad request");
-  //       break;
-  //     case 500:
-  //       alert(body.message || body || "Something went wrong :(");
-  //       break;
-  //     default:
-  //       alert(body.message || body || "Unknown error occured");
-  //   }
-  // }
+  private static async handleStatusError(
+    response: Response,
+    handleError = false
+  ) {
+    if (handleError && !response.ok) {
+      switch (response.status) {
+        case 400:
+          var body = await response.json();
+          alert(
+            body.errorMessage || body.message || "Failed due to bad request"
+          );
+          break;
+        case 500:
+          var text = await response.text();
+          alert("Server Error :(");
+          console.log(`Failed with exception: ${text}`);
+          break;
+        default:
+          var body = await response.json();
+          alert(body.message || body || "Unknown error occured");
+      }
+      return null;
+    } else if (!response.ok) {
+      return await response.text();
+    } else {
+      return await response.json();
+    }
+  }
 }
 
 export default httpClient;

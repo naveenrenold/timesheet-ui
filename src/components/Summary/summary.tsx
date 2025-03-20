@@ -52,12 +52,17 @@ function Summary() {
       fromDate: Date,
       toDate: Date
     ) => {
-      let response: Attendance[] = await httpClient.get(
+      let apiResponse: any = await httpClient.get(
         httpClient.getAttendance +
           new URLSearchParams(
             `employeeId=${employeeId}&fromDate=${fromDate.toISOString()}&toDate=${toDate.toISOString()}`
-          ).toString()
+          ).toString(),
+        true
       );
+      if (!apiResponse) {
+        return;
+      }
+      let response: Attendance[] = apiResponse;
 
       updateMonthStatus(formatStatusPerMonth(response));
     };
