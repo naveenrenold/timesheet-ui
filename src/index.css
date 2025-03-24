@@ -65,4 +65,6 @@ a:hover {
 .flex-direction {
   flex-direction: column;
 }
-
+.width-100 {
+  width: 100%;
+}

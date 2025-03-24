@@ -52,7 +52,7 @@ function App() {
         <Route path="/summary" element={<Summary />} />
         <Route path="/file-exception" element={<WFHException />} />
         <Route path="/report" element={<Report />} />
-        <Route path="/scanner" element={<Scanner />} />
+        <Route path="/scan" element={<Scanner />} />
       </Routes>
     </BrowserRouter>
   );
