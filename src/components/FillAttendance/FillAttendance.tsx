@@ -76,14 +76,14 @@ function FillAttendance() {
       if (!response) {
         return;
       }
-      const balanceResponse = await httpClient.post(
-        httpClient.updateAttendance,
-        { employeeId: employeeId.toString(), statusId: statusId },
-        true
-      );
-      if (!balanceResponse) {
-        return;
-      }
+      // const balanceResponse = await httpClient.post(
+      //   httpClient.updateAttendance,
+      //   { employeeId: employeeId.toString(), statusId: statusId },
+      //   true
+      // );
+      // if (!balanceResponse) {
+      //   return;
+      // }
       alert("Attendance submitted successfully!");
       setWfhBalance(newWfhBalance);
       setLeaveBalance(newLeaveBalance);
