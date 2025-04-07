@@ -5,6 +5,7 @@ class httpClient {
   //Attendance
   static getAttendance = "/api/attendance?";
   static postAttendance = "/api/attendance";
+  static getAttendanceReport = "/api/attendance/report?";
   //Auth
   static getAuthorisation = "/api/auth?employeeId=";
   //Employee

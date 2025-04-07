@@ -136,11 +136,11 @@ function Summary() {
           </label>
         </div>
         <div className="flex center margin-top-10 font-18">
-          <table>
+          <table className="table">
             <thead>
-              <tr>
+              <tr className="tr">
                 {weeks.map((week, id) => {
-                  return <th key={id}>{week}</th>;
+                  return <th className="th" key={id}>{week}</th>;
                 })}
               </tr>
             </thead>
@@ -160,12 +160,12 @@ function Summary() {
                         {ele.map((ele, idx) => {
                           return (
                             <>
-                              <tr key={idx}>
+                              <tr key={idx} className="tr">
                                 {ele.map((ele, id) => {
                                   return (
                                     <>
                                       <td
-                                        className={`status${ele} color`}
+                                        className={`status${ele} color td`}
                                         key={id}
                                       >
                                         {ele != 5
