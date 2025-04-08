@@ -98,52 +98,14 @@ function Summary() {
           }
           return acc;
         }, []);
-        // for (k = 0; k < weekOffset; k++) {
-        //   tempStatus.push(4);
-        // }
-        // for (k = 0; k < 7 - weekOffset; k++) {
-        //   tempStatus.push(statusList[k].statusId);
-        // }
-        // tempStatusList.push(tempStatus);
-
-        // for (; k < DaysinMonth + weekOffset; k = k + 7) {
-        //   tempStatusList.push(
-        //     statusList.slice(k, k + 7).map((ele) => ele.statusId)
-        //   );
-        //tempStatus.concat(statusList.slice(k,k+7).map((ele)=>ele.statusId))
-
         monthlyStatus.push({
           month: (12 + currentMonth - i) % 12,
           statusList: tempStatusList,
-          // statusList: statusList
-          //   .slice(j, j + DaysinMonth)
-          //   .map((ele) => ele.statusId),
         });
       }
       return monthlyStatus;
     };
   }, []);
-
-  // let tempMonthStatus: status[] = [];
-  // for (let i = 0; i < 30; i++) {
-  //   tempMonthStatus.push(Math.ceil(Math.random() * 4));
-  // }
-  //tempMonthStatus);
-
-  // const formatMonthStatus = () => {
-  //   let rows = monthStatus.length / 7;
-  //   let formattedMonthStatus: status[][] = [];
-  //   for (let i = 0; i < rows; i++) {
-  //     let tempStatus = [];
-  //     for (let j = 0; j < 7; j++) {
-  //       tempStatus.push(monthStatus[i * 7 + j]);
-  //     }
-  //     formattedMonthStatus.push(tempStatus);
-  //   }
-  //   return formattedMonthStatus;
-  // };
-  // const formattedMonthStatus = formatMonthStatus();
-  // console.log(formattedMonthStatus);
 
   const OnMonthUpdate = (date: Date) => {
     updateSelectedDate(date);
@@ -174,11 +136,11 @@ function Summary() {
           </label>
         </div>
         <div className="flex center margin-top-10 font-18">
-          <table>
+          <table className="table">
             <thead>
-              <tr>
+              <tr className="tr">
                 {weeks.map((week, id) => {
-                  return <th key={id}>{week}</th>;
+                  return <th className="th" key={id}>{week}</th>;
                 })}
               </tr>
             </thead>
@@ -198,12 +160,12 @@ function Summary() {
                         {ele.map((ele, idx) => {
                           return (
                             <>
-                              <tr key={idx}>
+                              <tr key={idx} className="tr">
                                 {ele.map((ele, id) => {
                                   return (
                                     <>
                                       <td
-                                        className={`status${ele} color`}
+                                        className={`status${ele} color td`}
                                         key={id}
                                       >
                                         {ele != 5

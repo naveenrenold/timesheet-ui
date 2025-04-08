@@ -35,10 +35,10 @@
 .bgcolor-lightblue {
   background-color: #9cc3d5;
 }
-tr {
+.tr {
   height: 50px;
 }
-td {
+.td {
   width: 75px;
   border-style: solid;
   border-width: 2px;
@@ -46,10 +46,10 @@ td {
   box-shadow: 2px 2px 2px black, -2px -2px 2px black;
   text-shadow: 1px 1px 10px white;
 }
-table {
+.table {
   border-collapse: collapse;
 }
-th {
+.th {
   border-style: solid;
   border-color: #9cc3d5;
   border-width: 2px;

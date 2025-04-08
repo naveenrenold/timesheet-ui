@@ -65,4 +65,27 @@ a:hover {
 .flex-direction {
   flex-direction: column;
 }
-
+.width-100 {
+  width: 100%;
+}
+.text-align-center {
+  text-align: center;
+}
+.margin-top-5 {
+  margin-top: 5px;
+}
+.margin-top-15 {
+  margin-top: 15px;
+}
+.margin-left-5 {
+  margin-left: 5px;
+}
+.bgcolor-lightblue {
+  background-color: #9cc3d5;
+}
+.color-darkblue {
+  background-color: #0063b2;
+}
+.height-50 {
+  height: 50px;
+}
