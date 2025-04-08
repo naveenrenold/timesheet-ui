@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import "./FillAttendance.css";
 import httpClient from "../../helperServices/httpClient";
 
-function FillAttendance() {
-  const navigate = useNavigate();
+function FillAttendance() { 
+
+  const navigate = useNavigate(); 
+
+  
 
   const currentDate = new Date();
   const getDateString = (date: Date) => {
@@ -23,49 +26,93 @@ function FillAttendance() {
   const [wfhBalance, setWfhBalance] = useState(0);
   const [leaveBalance, setLeaveBalance] = useState(0);
 
-  useEffect(() => {
-    const storedEmployee = sessionStorage.getItem("employee");
-    if (storedEmployee) {
-      const employeeData = JSON.parse(storedEmployee);
-      setEmployeeId(employeeData.employeeId || "");
-      setName(employeeData.name || "");
-      setGender(employeeData.gender || "");
-      setSpecialization(employeeData.specialization || "");
-      setWfhBalance(employeeData.totalWFH || 0);
-      setLeaveBalance(employeeData.totalLeaves || 0);
-    }
-  }, []);
+  useEffect(() => { 
 
-  const handleSubmit = async () => {
-    if (!employeeId || !attendanceDate || !statusId) {
-      alert("Please fill all fields.");
-      return;
-    }
+    const storedEmployee = sessionStorage.getItem("employee"); 
 
-    // Check balances before submitting
-    if (statusId === "2" && wfhBalance <= 0) {
-      alert("Insufficient WFH balance.");
-      return;
-    } else if (statusId === "3" && leaveBalance <= 0) {
-      alert("Insufficient Leave balance.");
-      return;
-    }
+    if (storedEmployee) { 
 
-    // Update balances locally before sending
-    const newWfhBalance = statusId === "2" ? wfhBalance - 1 : wfhBalance;
-    const newLeaveBalance = statusId === "3" ? leaveBalance - 1 : leaveBalance;
+      const employeeData = JSON.parse(storedEmployee); 
 
-    const requestData = {
-      employeeId,
-      name,
-      attendanceDate,
-      statusId,
-      leaveType,
-      gender,
-      specialization,
-      wfhBalance: newWfhBalance,
-      leaveBalance: newLeaveBalance,
-    };
+      setEmployeeId(employeeData.employeeId || ""); 
+
+      setName(employeeData.name || ""); 
+
+      setGender(employeeData.gender || ""); 
+
+      setSpecialization(employeeData.specialization || ""); 
+
+      setWfhBalance(employeeData.totalWFH || 0); 
+
+      setLeaveBalance(employeeData.totalLeaves || 0); 
+
+    } 
+
+  }, []); 
+
+  
+
+  const handleSubmit = async () => { 
+
+    if (!employeeId || !attendanceDate || !statusId) { 
+
+      alert("Please fill all fields."); 
+
+      return; 
+
+    } 
+
+  
+
+    // Check balances before submitting 
+
+    if (statusId === "2" && wfhBalance <= 0) { 
+
+      alert("Insufficient WFH balance."); 
+
+      return; 
+
+    } else if (statusId === "3" && leaveBalance <= 0) { 
+
+      alert("Insufficient Leave balance."); 
+
+      return; 
+
+    } 
+
+  
+
+    // Update balances locally before sending 
+
+    const newWfhBalance = statusId === "2" ? wfhBalance - 1 : wfhBalance; 
+
+    const newLeaveBalance = statusId === "3" ? leaveBalance - 1 : leaveBalance; 
+
+  
+
+    const requestData = { 
+
+      employeeId, 
+
+      name, 
+
+      attendanceDate, 
+
+      statusId, 
+
+      leaveType, 
+
+      gender, 
+
+      specialization, 
+
+      wfhBalance: newWfhBalance, 
+
+      leaveBalance: newLeaveBalance, 
+
+    }; 
+
+  
 
     try {
       const response = await httpClient.post(
@@ -104,45 +151,79 @@ function FillAttendance() {
     }
   };
 
-  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setStatusId(e.target.value);
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => { 
+
+    setStatusId(e.target.value); 
+
+  
 
     // Show leave options only if 'Leave' is selected
     document
       .getElementById("leaveOptions")
       ?.style.setProperty("display", e.target.value === "3" ? "block" : "none");
 
-    // Reset leave type when changing status
-    setLeaveType("");
-  };
+    // Reset leave type when changing status 
 
-  const getFilteredLeaveTypes = () => {
-    const leaveOptions = [
-      { value: "3", label: "Earned" },
-      { value: "4", label: "Sick" },
-      { value: "5", label: "Annual" },
-    ];
+    setLeaveType(""); 
 
-    if (gender.toLowerCase() === "male") {
-      leaveOptions.push({ value: "7", label: "Parental" });
-    } else if (gender.toLowerCase() === "female") {
-      leaveOptions.push({ value: "6", label: "Maternity" });
-    }
+  }; 
 
-    return leaveOptions;
-  };
+  
 
-  return (
-    <div className="fill-attendance-container">
-      <h2>Fill Attendance</h2>
-      <div className="attendance-form">
-        <div className="form-group">
-          <label htmlFor="attendanceDate">Date</label>
-          <input
-            type="date"
-            id="attendanceDate"
-            value={attendanceDate}
-            onChange={(e) => setAttendanceDate(e.target.value)}
+  const getFilteredLeaveTypes = () => { 
+
+    const leaveOptions = [ 
+
+      { value: "3", label: "Earned" }, 
+
+      { value: "4", label: "Sick" }, 
+
+      { value: "5", label: "Annual" }, 
+
+    ]; 
+
+  
+
+    if (gender.toLowerCase() === "male") { 
+
+      leaveOptions.push({ value: "7", label: "Parental" }); 
+
+    } else if (gender.toLowerCase() === "female") { 
+
+      leaveOptions.push({ value: "6", label: "Maternity" }); 
+
+    } 
+
+  
+
+    return leaveOptions; 
+
+  }; 
+
+  
+
+  return ( 
+   <>
+    <div className="fill-attendance-container"> 
+
+      <div className= "fill">Fill Attendance</div>
+
+      <div className="attendance-form"> 
+
+        <div className="form-group"> 
+
+          <label htmlFor="attendanceDate">Date</label> 
+
+          <input 
+
+            type="date" 
+
+            id="attendanceDate" 
+
+            value={attendanceDate} 
+
+            onChange={(e) => setAttendanceDate(e.target.value)} 
+
             max={currentDate.toISOString().slice(0, 10)}
             min={getDateString(
               new Date(
@@ -151,17 +232,29 @@ function FillAttendance() {
                 currentDate.getDate() - 6
               )
             )}
-          />
-        </div>
+          /> 
 
-        <div className="form-group">
-          <label htmlFor="status">Attendance Status</label>
-          <select id="status" value={statusId} onChange={handleStatusChange}>
-            <option value="1">Present</option>
-            <option value="2">WFH</option>
-            <option value="3">Leave</option>
-          </select>
-        </div>
+        </div> 
+
+  
+
+        <div className="form-group"> 
+
+          <label htmlFor="status">Attendance Status</label> 
+
+          <select id="status" value={statusId} onChange={handleStatusChange}> 
+
+            <option value="1">Present</option> 
+
+            <option value="2">WFH</option> 
+
+            <option value="3">Leave</option> 
+
+          </select> 
+
+        </div> 
+
+  
 
         <div
           className="form-group"
@@ -190,7 +283,10 @@ function FillAttendance() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
-export default FillAttendance;
+export default FillAttendance; 
+
+ 

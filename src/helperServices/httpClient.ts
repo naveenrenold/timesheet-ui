@@ -12,6 +12,8 @@ class httpClient {
   static employeeLogin = "/api/employee/login";
   static updateAttendance = "/api/employee/updateattendance";
   static getEmployee = "/api/employee/getEmployee/"; // +employeeId
+  //Exception
+  static addException = '/api/exception';
 
   static async get<T>(
     url: string,
