@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react"; 
-
-import { useNavigate } from "react-router-dom"; 
-
-import "./FillAttendance.css"; 
-
-  
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./FillAttendance.css";
+import httpClient from "../../helperServices/httpClient";
 
 function FillAttendance() { 
 
@@ -118,48 +115,37 @@ function FillAttendance() {
   
 
     try {
-      const response = await fetch("http://localhost:5000/api/attendance", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestData),
-      });
-
-      if (response.ok) {
-        const balanceResponse = await fetch(
-          "http://localhost:5000/api/employee/updateattendance",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              employeeId: employeeId.toString(),
-              statusId: statusId,
-            }),
-          }
-        );
-        if (!balanceResponse.ok) {
-          const data = await balanceResponse.json();
-          alert(data.message || "Failed to submit attendance.");
-          return;
-        }
-        alert("Attendance submitted successfully!");
-        setWfhBalance(newWfhBalance);
-        setLeaveBalance(newLeaveBalance);
-        sessionStorage.setItem(
-          "employee",
-          JSON.stringify({
-            employeeId,
-            name,
-            gender,
-            specialization,
-            totalWFH: newWfhBalance,
-            totalLeaves: newLeaveBalance,
-          })
-        );
-        navigate("/home");
-      } else {
-        const data = await response.json();
-        alert(data.message || "Failed to submit attendance.");
+      const response = await httpClient.post(
+        httpClient.postAttendance,
+        requestData,
+        true
+      );
+      if (!response) {
+        return;
       }
+      // const balanceResponse = await httpClient.post(
+      //   httpClient.updateAttendance,
+      //   { employeeId: employeeId.toString(), statusId: statusId },
+      //   true
+      // );
+      // if (!balanceResponse) {
+      //   return;
+      // }
+      alert("Attendance submitted successfully!");
+      setWfhBalance(newWfhBalance);
+      setLeaveBalance(newLeaveBalance);
+      sessionStorage.setItem(
+        "employee",
+        JSON.stringify({
+          employeeId,
+          name,
+          gender,
+          specialization,
+          totalWFH: newWfhBalance,
+          totalLeaves: newLeaveBalance,
+        })
+      );
+      navigate("/home");
     } catch (err) {
       alert("Something went wrong. Try again later.");
     }

@@ -5,6 +5,7 @@ class httpClient {
   //Attendance
   static getAttendance = "/api/attendance?";
   static postAttendance = "/api/attendance";
+  static getAttendanceReport = "/api/attendance/report?";
   //Auth
   static getAuthorisation = "/api/auth?employeeId=";
   //Employee
@@ -14,23 +15,55 @@ class httpClient {
   //Exception
   static addException = '/api/exception';
 
-  static async get<T>(url: string) {
+  static async get<T>(
+    url: string,
+    handleError = false
+  ): Promise<null | string | T> {
     let response = await fetch(this.baseUrl + url, {
       method: "get",
       headers: { "Content-Type": "application/json" },
     });
-    let responseJson: T = await response.json();
-    return responseJson;
+    return this.handleStatusError(response, handleError);
   }
 
-  static async post(url: string, requestBody: any) {
+  static async post(url: string, requestBody: any, handleError = false) {
     let response = await fetch(this.baseUrl + url, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     });
-    let responseJson = await response.json();
-    return responseJson;
+    return this.handleStatusError(response, handleError);
+  }
+  private static async handleStatusError(
+    response: Response,
+    handleError = false
+  ) {
+    if (handleError && !response.ok) {
+      switch (response.status) {
+        case 400:
+          var body = await response.json();
+          alert(
+            body.errorMessage ||
+              body.error?.errorMessage ||
+              body.message ||
+              "Failed due to bad request"
+          );
+          break;
+        case 500:
+          var text = await response.text();
+          alert("Server Error :(");
+          console.log(`Failed with exception: ${text}`);
+          break;
+        default:
+          var body = await response.json();
+          alert(body.message || "Unknown error occured");
+      }
+      return null;
+    } else if (!response.ok) {
+      return await response.text();
+    } else {
+      return await response.json();
+    }
   }
 }
 
