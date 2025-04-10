@@ -22,8 +22,8 @@ function Report() {
   let [selectedMonthStartingDate, updateSelectedMonthStartingDate] = useState(
     months[0].startingDate.toISOString()
   );
-  let [currentPage, updateCurrentPage] = useState(1);
-  let [totalPages, updateTotalPages] = useState(1);
+  let [currentPage] = useState(1);
+  let [totalPages] = useState(1);
   const [attendanceReportData, updateAttendanceReportData] = useState<
     AttendanceReport[]
   >([]);

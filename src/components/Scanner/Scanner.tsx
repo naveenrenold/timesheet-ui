@@ -25,7 +25,7 @@ function Scanner() {
             setTimeout(() => {
               html5QRCode.resume();
             }, 2000);
-            fillAttendance(decodedText, html5QRCode.resume);
+            fillAttendance(decodedText);
           },
           function handleError(err) {
             console.log("Scanner failed to scan", err);
@@ -38,7 +38,7 @@ function Scanner() {
   }, []);
   const scanStates = ["Ready To Scan!", "Present", "Scan failed"];
   let [scanState, updateScanState] = useState(scanStates[0]);
-  const fillAttendance = function (employeeId: string, resume: () => void) {
+  const fillAttendance = function (employeeId: string) {
     if (employeeId) {
       let request = {
         employeeId,

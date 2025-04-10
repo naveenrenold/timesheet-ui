@@ -154,7 +154,7 @@ function Summary() {
                   .map((ele) => {
                     return ele.statusList;
                   })
-                  .map((ele, id) => {
+                  .map((ele) => {
                     return (
                       <>
                         {ele.map((ele, idx) => {
