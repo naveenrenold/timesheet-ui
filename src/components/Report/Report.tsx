@@ -1,4 +1,4 @@
-import { Month } from "../Summary/summary";
+import { Month } from "../Summary/Summary";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { useEffect, useState } from "react";

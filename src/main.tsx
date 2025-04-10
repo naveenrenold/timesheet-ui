@@ -2,12 +2,12 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Login from "./components/Login/Login.tsx";
-import Header from "./components/Header/header.tsx";
-import Home from "./components/Home/home.tsx";
+import Header from "./components/Header/Header.tsx";
+import Home from "./components/Home/Home.tsx";
 import FillAttendance from "./components/FillAttendance/FillAttendance.tsx";
 
 import "./index.css";
-import Summary from "./components/Summary/summary.tsx";
+import Summary from "./components/Summary/Summary.tsx";
 import WFHException from "./components/WFHException/WFHException.tsx";
 import Report from "./components/Report/Report.tsx";
 import Scanner from "./components/Scanner/Scanner.tsx";
