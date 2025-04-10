@@ -1,9 +1,9 @@
-import { TextField, Select, Button } from "@mui/material";
+import { TextField} from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import "./WFHException.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import moment, { Moment } from "moment";
 import httpClient from "../../helperServices/httpClient";
 
@@ -97,7 +97,7 @@ function WFHException() {
         <div className="common">
           <button
             className="button"
-            onClick={(e) => {
+            onClick={() => {
               addException(exceptionDate, reason, approvalManagerId);
             }}
           >

@@ -11,7 +11,7 @@ import Summary from "./components/Summary/summary.tsx";
 import WFHException from "./components/WFHException/WFHException.tsx";
 import Report from "./components/Report/Report.tsx";
 import Scanner from "./components/Scanner/Scanner.tsx";
-import Approval from "./components/Approval/approval.tsx";
+import Approval from "./components/Approval/Approval.tsx";
 
 function App() {
   const [employeeId, updateEmployeeId] = useState(
