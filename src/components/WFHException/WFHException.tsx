@@ -24,13 +24,19 @@ function WFHException() {
       return;
     }
     let requestBody = {
-      employeeId: employeeDetails["employeeId"],
+      employeeId: employeeDetails["employeeId"].toString(),
       exceptionDate,
       reason,
-      approvalManagerId,
+      reportingToEmployeeId: approvalManagerId,
     };
-    let response = await httpClient.post(httpClient.addException, requestBody);
-    console.log(response);
+    let response = await httpClient.post(
+      httpClient.addException,
+      requestBody,
+      true
+    );
+    if (response.message) {
+      alert(response.message);
+    }
   };
   const validateException = (
     exceptionDate: Moment,
@@ -54,8 +60,12 @@ function WFHException() {
 
         <div className="common">
           <label> Exception Date :</label>
-          <LocalizationProvider dateAdapter={AdapterMoment}>
+          <LocalizationProvider
+            dateAdapter={AdapterMoment}
+            adapterLocale="en-in"
+          >
             <DatePicker
+              defaultValue={exceptionDate}
               maxDate={moment(new Date())}
               onChange={(e) => {
                 updateExceptionDate(e!);
