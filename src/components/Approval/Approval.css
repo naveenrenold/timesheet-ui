@@ -1,0 +1,14 @@
+.color-green {
+  color: #1fc11f;
+}
+.color-green:hover {
+  color: #1fc11f;
+  cursor: pointer;
+}
+.color-red {
+  color: #ff0b0bcf;
+}
+.color-red:hover {
+  color: #ff0b0bcf;
+  cursor: pointer;
+}

@@ -60,12 +60,15 @@ function WFHException() {
 
         <div className="common">
           <label> Exception Date :</label>
-          <LocalizationProvider dateAdapter={AdapterMoment}>
+          <LocalizationProvider
+            dateAdapter={AdapterMoment}
+            adapterLocale="en-in"
+          >
             <DatePicker
               defaultValue={exceptionDate}
               maxDate={moment(new Date())}
               onChange={(e) => {
-                updateExceptionDate(e?.add(330, "minutes")!);
+                updateExceptionDate(e!);
               }}
             />
           </LocalizationProvider>

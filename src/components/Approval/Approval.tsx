@@ -3,6 +3,7 @@ import CancelTwoToneIcon from "@mui/icons-material/CancelTwoTone";
 import { useEffect, useState } from "react";
 import httpClient from "../../helperServices/httpClient";
 import { Employee } from "../../model/employee";
+import "./Approval.css";
 
 function Approval() {
   const tableHeaders = [
@@ -51,46 +52,49 @@ function Approval() {
   };
   return (
     <>
-      <div className="flex margin-left-5 font-24">
-        <div>Pending Approvals</div>
+      <div className="flex margin-left-5 font-24 margint-top-5">
+        <div>Pending Approvals:</div>
       </div>
-      <table className="table">
-        <tr className="tr">
-          {tableHeaders.map((header, id) => (
-            <th className="th" key={id}>
-              {header}
-            </th>
-          ))}
-        </tr>
-        {tableData ? (
-          tableData.map((approval) => (
-            <tr className="tr" key={approval.exceptionId}>
-              <td className="td">{approval.exceptionId}</td>
-              <td className="td">{approval.employeeId}</td>
-              <td className="td">{approval.employeeName}</td>
-              <td className="td">{approval.exceptionDate}</td>
-              <td className="td">{approval.reason}</td>
-              <td className="td">
-                <CheckCircleTwoToneIcon
-                  onClick={() => {
-                    approveException(approval.exceptionId, true);
-                  }}
-                ></CheckCircleTwoToneIcon>
-                <CancelTwoToneIcon
-                  className="margin-left-5"
-                  onClick={() => {
-                    approveException(approval.exceptionId, false);
-                  }}
-                ></CancelTwoToneIcon>
-              </td>
-            </tr>
-          ))
-        ) : (
-          <tr>
-            <td rowSpan={6}>No Exception :)</td>
+      <div className="flex center">
+        <table className="table margin-top-15 width-100">
+          <tr className="tr">
+            {tableHeaders.map((header, id) => (
+              <th className="th" key={id}>
+                {header}
+              </th>
+            ))}
           </tr>
-        )}
-      </table>
+          {tableData ? (
+            tableData.map((approval) => (
+              <tr className="tr" key={approval.exceptionId}>
+                <td className="td-report">{approval.exceptionId}</td>
+                <td className="td-report">{approval.employeeId}</td>
+                <td className="td-report">{approval.employeeName}</td>
+                <td className="td-report">{approval.exceptionDate}</td>
+                <td className="td-report">{approval.reason}</td>
+                <td className="td-report">
+                  <CheckCircleTwoToneIcon
+                    className="color-green"
+                    onClick={() => {
+                      approveException(approval.exceptionId, true);
+                    }}
+                  ></CheckCircleTwoToneIcon>
+                  <CancelTwoToneIcon
+                    className="margin-left-5 color-red"
+                    onClick={() => {
+                      approveException(approval.exceptionId, false);
+                    }}
+                  ></CancelTwoToneIcon>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td rowSpan={6}>No Exception :)</td>
+            </tr>
+          )}
+        </table>
+      </div>
     </>
   );
 }

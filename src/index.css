@@ -89,3 +89,15 @@ a:hover {
 .height-50 {
   height: 50px;
 }
+.width-100 {
+  width: 100%;
+}
+.MuiIcon-colorPrimary {
+  color: green;
+}
+.MuiIcon-colorSecondary {
+  color: red;
+}
+.MuiIcon-colorAction {
+  color: orange;
+}
