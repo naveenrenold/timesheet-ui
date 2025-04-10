@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { useEffect, useState } from "react";
+import httpClient from "../../helperServices/httpClient";
 
 function Login({
   onLogin,
@@ -24,11 +25,14 @@ function Login({
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/employee/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ employeeId, password }),
-      });
+      const response = await fetch(
+        httpClient.baseUrl + httpClient.employeeLogin,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ employeeId, password }),
+        }
+      );
 
       const data = await response.json();
 
