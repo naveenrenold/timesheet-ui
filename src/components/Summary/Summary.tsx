@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./summary.css";
+import "./Summary.css";
 import httpClient from "../../helperServices/httpClient";
 import { Employee } from "../../model/employee";
 
@@ -140,7 +140,11 @@ function Summary() {
             <thead>
               <tr className="tr">
                 {weeks.map((week, id) => {
-                  return <th className="th" key={id}>{week}</th>;
+                  return (
+                    <th className="th" key={id}>
+                      {week}
+                    </th>
+                  );
                 })}
               </tr>
             </thead>
