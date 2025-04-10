@@ -64,7 +64,7 @@ function Approval() {
               </th>
             ))}
           </tr>
-          {tableData ? (
+          {tableData.length > 0 ? (
             tableData.map((approval) => (
               <tr className="tr" key={approval.exceptionId}>
                 <td className="td-report">{approval.exceptionId}</td>
@@ -89,8 +89,8 @@ function Approval() {
               </tr>
             ))
           ) : (
-            <tr>
-              <td rowSpan={6}>No Exception :)</td>
+            <tr className="text-align-center font-24">
+              <td colSpan={6}>No Pending Exceptions :)</td>
             </tr>
           )}
         </table>
