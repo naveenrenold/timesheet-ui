@@ -1,5 +1,6 @@
 class httpClient {
-  private static baseUrl = "http://localhost:5000";
+  static baseUrl =
+    "https://timesheet1-adbpd8bffqcsh2b8.eastus2-01.azurewebsites.net"; //"http://localhost:5000";
 
   //Endpoints
   //Attendance
