@@ -12,6 +12,7 @@ import WFHException from "./components/WFHException/WFHException.tsx";
 import Report from "./components/Report/Report.tsx";
 import Scanner from "./components/Scanner/Scanner.tsx";
 import Approval from "./components/Approval/Approval.tsx";
+import React from "react";
 
 function App() {
   const [employeeId, updateEmployeeId] = useState(
@@ -39,7 +40,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       {isLoggedIn && (
         <Header onLogout={handleLogout} employeeId={employeeId ?? ""} />
       )}
